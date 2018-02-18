@@ -20,9 +20,10 @@ public class Rover {
 	private int y;
 	private Direction d;
 	private Direction[] direction_table = new Direction[4];
+	private Planet planet;
 	
 	
-	public Rover(int x, int y, Direction d) {
+	public Rover(int x, int y, Direction d, Planet planet) {
 		this.x = x;
 		this.y = y;
 		this.d = d;
@@ -30,6 +31,7 @@ public class Rover {
 		direction_table[1] = Direction.E;
 		direction_table[2] = Direction.S;
 		direction_table[3] = Direction.W;
+		this.planet = planet;
 	}
 	
 	public int getX() {
@@ -75,8 +77,8 @@ public class Rover {
 			x_change = 0;
 			y_change = 0;
 		}
-		x = x + direction * x_change;
-		y = y + direction * y_change;
+		x = (x + direction * x_change + planet.getX()) % planet.getX();
+		y = (y + direction * y_change + planet.getY()) % planet.getY();
 	}
 	
 	private void single_move(char command) {
