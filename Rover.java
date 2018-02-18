@@ -108,8 +108,8 @@ public class Rover {
 			d = direction_table[(d.getValue() + direction_table.length + 1) % direction_table.length];
 			return true;
 		default:
-			System.out.println("wrong command" + command);
-			return false;
+			System.out.println("invalid command: " + command);	//ignore the invalid move and continue to execute the rest commands.
+			return true;
 		}
 	}
 

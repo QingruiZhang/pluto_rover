@@ -17,6 +17,13 @@ public class RoverTest {
 	}
 	
 	@Test
+	public void invalidMove() {
+		Rover rover = new Rover(0,0,Direction.N, plain_planet);
+		rover.move("FAF");
+		assertEquals("ignore invalid command", rover.getY(), 2);
+	}
+	
+	@Test
 	public void moveBackwardOnce() {
 		Rover rover = new Rover(0,0,Direction.N, plain_planet);
 		rover.move("B");
