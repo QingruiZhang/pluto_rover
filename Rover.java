@@ -50,22 +50,51 @@ public class Rover {
 		}
 	}
 	
+	//direction is 1 for forward and -1 for backward
+	private void move_straight(int direction) {
+		int x_change;
+		int y_change;
+		switch(d) {
+		case N:
+			x_change = 0;
+			y_change = 1;
+			break;
+		case E:
+			x_change = 1;
+			y_change = 0;
+			break;
+		case S:
+			x_change = 0;
+			y_change = -1;
+			break;
+		case W:
+			x_change = -1;
+			y_change = 0;
+			break;
+		default:
+			x_change = 0;
+			y_change = 0;
+		}
+		x = x + direction * x_change;
+		y = y + direction * y_change;
+	}
+	
 	private void single_move(char command) {
 		switch (command) {
-			case 'F': 
-				y++;
-				break;
-			case 'B':
-				y--;
-				break;
-			case 'L':
-				d = direction_table[(d.getValue() + direction_table.length - 1) % direction_table.length];
-				break;
-			case 'R':
-				d = direction_table[(d.getValue() + direction_table.length + 1) % direction_table.length];
-				break;
-			default:
-				System.out.println("wrond command" + command);
+		case 'F': 
+			move_straight(1);
+			break;
+		case 'B':
+			move_straight(-1);
+			break;
+		case 'L':
+			d = direction_table[(d.getValue() + direction_table.length - 1) % direction_table.length];
+			break;
+		case 'R':
+			d = direction_table[(d.getValue() + direction_table.length + 1) % direction_table.length];
+			break;
+		default:
+			System.out.println("wrong command" + command);
 		}
 	}
 

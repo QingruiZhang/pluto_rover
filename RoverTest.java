@@ -24,7 +24,7 @@ public class RoverTest {
 		Rover rover = new Rover(0,0,Direction.N);
 		rover.move("R");
 		assertEquals("turn right once", rover.getX(), 0);
-		assertEquals("turn right nce", rover.getY(), 0);
+		assertEquals("turn right once", rover.getY(), 0);
 		assertEquals("turn right once", rover.getDirection(), Direction.E);
 	}
 	
@@ -35,5 +35,14 @@ public class RoverTest {
 		assertEquals("turn right and left", rover.getX(), 0);
 		assertEquals("turn right and left", rover.getY(), 0);
 		assertEquals("turn right and left", rover.getDirection(), Direction.N);
+	}
+	
+	@Test
+	public void turnRightAndMove() {
+		Rover rover = new Rover(0,0,Direction.N);
+		rover.move("RF");
+		assertEquals("turn right and move", rover.getX(), 1);
+		assertEquals("turn right and move", rover.getY(), 0);
+		assertEquals("turn right and move", rover.getDirection(), Direction.E);
 	}
 }
