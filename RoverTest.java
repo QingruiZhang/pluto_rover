@@ -83,4 +83,14 @@ public class RoverTest {
 		assertEquals("move to obstacles", rover.getY(), 9);
 		assertEquals("move to obstacles", rover.getDirection(), Direction.N);
 	}
+	
+	@Test
+	public void moreThanOneCommandsSeries() {
+		Rover rover = new Rover(0,0,Direction.N, obstacle_planet);
+		rover.move("FFFFFFFFFFFFFFFFFFFFFRFFF");
+		rover.move("RFBFBF");
+		assertEquals("2 commands series", rover.getX(), 1);
+		assertEquals("2 commands series", rover.getY(), 9);
+		assertEquals("2 commands series", rover.getDirection(), Direction.E);
+	}
 }
