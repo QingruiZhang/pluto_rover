@@ -9,6 +9,6 @@ public class RoverTest {
 	public void moveForwardOnce() {
 		Rover rover = new Rover(0,0,Direction.N);
 		rover.move("F");
-		assertEquals("move forward once", rover.y, 1);
+		assertEquals("move forward once", rover.getY(), 1);
 	}
 }
