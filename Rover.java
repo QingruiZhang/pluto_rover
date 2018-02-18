@@ -46,16 +46,22 @@ public class Rover {
 		return d;
 	}
 	
+	//report any detected obstacles and stop the command sequences
 	public void move(String commands) {
 		for (int i = 0; i < commands.length(); i++) {
-			single_move(commands.charAt(i));
+			if (!single_move(commands.charAt(i))) {
+				System.out.println("encounter an obstacle when the rover is at (" + x + "," + y +") and trying to execute command " + commands.charAt(i));
+				break;
+			}
 		}
 	}
 	
-	//direction is 1 for forward and -1 for backward
-	private void move_straight(int direction) {
+	//direction is 1 for forward and -1 for backward, return false if a obstacle is detected.
+	private boolean move_straight(int direction) {
+		
 		int x_change;
 		int y_change;
+		
 		switch(d) {
 		case N:
 			x_change = 0;
@@ -77,26 +83,33 @@ public class Rover {
 			x_change = 0;
 			y_change = 0;
 		}
-		x = (x + direction * x_change + planet.getX()) % planet.getX();
-		y = (y + direction * y_change + planet.getY()) % planet.getY();
+		
+		int x_check = (x + direction * x_change + planet.getX()) % planet.getX();
+		int y_check = (y + direction * y_change + planet.getY()) % planet.getY();
+		if (planet.has_obstacle(x_check, y_check)) {
+			return false;
+		}
+		x = x_check;
+		y = y_check;
+		return true;
 	}
 	
-	private void single_move(char command) {
+	//return true if the move is valid, false if detect a obstacle
+	private boolean single_move(char command) {
 		switch (command) {
 		case 'F': 
-			move_straight(1);
-			break;
+			return move_straight(1);
 		case 'B':
-			move_straight(-1);
-			break;
+			return move_straight(-1);
 		case 'L':
 			d = direction_table[(d.getValue() + direction_table.length - 1) % direction_table.length];
-			break;
+			return true;
 		case 'R':
 			d = direction_table[(d.getValue() + direction_table.length + 1) % direction_table.length];
-			break;
+			return true;
 		default:
 			System.out.println("wrong command" + command);
+			return false;
 		}
 	}
 

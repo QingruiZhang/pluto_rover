@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 public class RoverTest {
 	
 	final Planet plain_planet = new Planet(100, 100, null);
+	final int[][] obstacles = {{0,10}};
+	final Planet obstacle_planet = new Planet(100, 100, obstacles);
 	
 	@Test
 	public void moveForwardOnce() {
@@ -64,5 +66,14 @@ public class RoverTest {
 		assertEquals("turn F from 99", rover.getX(), 0);
 		assertEquals("turn F from 99", rover.getY(), 0);
 		assertEquals("turn F from 99", rover.getDirection(), Direction.N);
+	}
+	
+	@Test
+	public void moveToObstacles() {
+		Rover rover = new Rover(0,0,Direction.N, obstacle_planet);
+		rover.move("FFFFFFFFFFFFFFFFFFFFFRFFF");
+		assertEquals("move to obstacles", rover.getX(), 0);
+		assertEquals("move to obstacles", rover.getY(), 9);
+		assertEquals("move to obstacles", rover.getDirection(), Direction.N);
 	}
 }
